@@ -12,19 +12,21 @@
 */
 
 //Home Page
-Route::get('/', 'IndexController@getIndex');
+Route::get('/', 'IndexController@getIndex')->name('index');
 Route::post('/search-product', 'IndexController@postSearch');
-
+Route::post('/search-product-detail', 'IndexController@postSearchDetail');
+//Product Homepage
+Route::get('/san-pham/{category}', 'IndexController@getProduct')->name('san-pham');
 //Blog Page
-Route::get('/blog', 'BlogController@getIndex');
-Route::get('/blog/detail/{slug}', 'BlogController@showBlog');
+Route::get('/tin-tuc', 'BlogController@getIndex')->name('tin-tuc');
+Route::get('/tin-tuc/{slug}', 'BlogController@showBlog')->name('tin-tuc.chitiet');
 //Cart Home Page
-Route::get('/cart-homepage', 'CartController@getIndex');
+Route::get('/gio-hang', 'CartController@getIndex')->name('gio-hang');
 Route::post('/add-to-cart', 'CartController@postAddCart');
 Route::post('/delete-cart', 'CartController@postDelete');
 Route::post('/update-cart', 'CartController@postUpdate');
 //Lien He Home Page
-Route::get('/lienhe-homepage', 'LienHeController@getIndex');
+Route::get('/lienhe', 'LienHeController@getIndex')->name('lienhe');
 
 
 //Cart
@@ -103,6 +105,14 @@ Route::prefix('admin')->group(function () {
 	Route::get('cskh/list', 'CskhController@getList')->name('admin.cskh.list');
 	Route::post('cskh/delete', 'CskhController@postDelete')->name('admin.cskh.delete');
 
+});
+
+//refresh token in laravel
+Route::post('/refresh-token', function () {
+	return response()->json(array(
+                                    'response'=>'true'
+                                ,   'data'=>csrf_token()
+    )); 
 });
 
 // Route::get('/home', 'HomeController@index')->name('home');

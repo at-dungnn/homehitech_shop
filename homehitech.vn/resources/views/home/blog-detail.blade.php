@@ -3,7 +3,7 @@
 	<section>
 		<div class="container">
 			<div class="row">
-				<div class="col-sm-9">
+				<div class="col-sm-12">
 					<div class="blog-post-area">
 						<div class="single-blog-post">
 							<h3>{{$news->title}}</h3>
@@ -20,6 +20,7 @@
 									<i class="fa fa-star-half-o"></i>
 								</span>
 							</div>
+							<p>{!!$news->intro!!}</p>
 							<a href="">
 								<img src="../../upload/news/{{$news->img_path}}" alt="">
 							</a>

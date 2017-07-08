@@ -31,7 +31,7 @@
 								<p>Mã Sản Phẩm: {{ $val->attributes->ma_sanpham }}</p>
 							</td>
 							<td class="cart_price">
-								<p>{{ $val->price }}</p>
+								<p>{{ number_format($val->price) }} VNĐ</p>
 							</td>
 							<td class="cart_quantity">
 								<div class="cart_quantity_button">
@@ -39,13 +39,14 @@
 								</div>
 							</td>
 							<td class="cart_total">
-								<p class="cart_total_price">{{ $val->quantity * $val->price }}</p>
+								<p class="cart_total_price">{{ number_format($val->quantity * $val->price) }} VNĐ</p>
 							</td>
 							<td class="cart_delete">
 								<a class="cart_quantity_delete" data-id="{{ $val->id }}"><i class="fa fa-times"></i></a>
 							</td>
 						</tr>
 						@endforeach
+						<tr><td colspan="4"></td><td>Tổng tiền: {{number_format($totalMoney)}} VNĐ</td></tr>
 					</tbody>
 				</table>
 			</div>
@@ -54,75 +55,31 @@
 
 	<section id="do_action">
 		<div class="container">
-			<div class="heading">
-				<h3>What would you like to do next?</h3>
-				<p>Choose if you have a discount code or reward points you want to use or would like to estimate your delivery cost.</p>
-			</div>
-			<div class="row">
-				<div class="col-sm-6">
+			<div class="row form-horizontal">
+				<div class="col-md-6 pull-right">
 					<div class="chose_area">
-						<ul class="user_option">
-							<li>
-								<input type="checkbox">
-								<label>Use Coupon Code</label>
-							</li>
-							<li>
-								<input type="checkbox">
-								<label>Use Gift Voucher</label>
-							</li>
-							<li>
-								<input type="checkbox">
-								<label>Estimate Shipping & Taxes</label>
-							</li>
-						</ul>
 						<ul class="user_info">
 							<li class="single_field">
-								<label>Country:</label>
-								<select>
-									<option>United States</option>
-									<option>Bangladesh</option>
-									<option>UK</option>
-									<option>India</option>
-									<option>Pakistan</option>
-									<option>Ucrane</option>
-									<option>Canada</option>
-									<option>Dubai</option>
-								</select>
+								<label>Họ và tên:</label>
+								<input type="text">
 								
 							</li>
 							<li class="single_field">
-								<label>Region / State:</label>
-								<select>
-									<option>Select</option>
-									<option>Dhaka</option>
-									<option>London</option>
-									<option>Dillih</option>
-									<option>Lahore</option>
-									<option>Alaska</option>
-									<option>Canada</option>
-									<option>Dubai</option>
-								</select>
+								<label>Số điện thoại:</label>
+								<input type="text">
 							
 							</li>
-							<li class="single_field zip-field">
-								<label>Zip Code:</label>
+							<li class="single_field">
+								<label>Email:</label>
 								<input type="text">
 							</li>
+							<li>
+								<label>Ghi chú</label>
+								<textarea name="" id="" rows="10" style="width: 470px"></textarea>
+							</li>
 						</ul>
-						<a class="btn btn-default update" href="">Get Quotes</a>
-						<a class="btn btn-default check_out" href="">Continue</a>
-					</div>
-				</div>
-				<div class="col-sm-6">
-					<div class="total_area">
-						<ul>
-							<li>Cart Sub Total <span>$59</span></li>
-							<li>Eco Tax <span>$2</span></li>
-							<li>Shipping Cost <span>Free</span></li>
-							<li>Total <span>$61</span></li>
-						</ul>
-							<a class="btn btn-default update" href="">Update</a>
-							<a class="btn btn-default check_out" href="">Check Out</a>
+						
+						<a class="btn btn-default check_out" href="">Đặt hàng</a>
 					</div>
 				</div>
 			</div>

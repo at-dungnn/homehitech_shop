@@ -16,6 +16,7 @@
 	<link href="{{ asset('css/dev_dung.css') }}" rel="stylesheet">
     <link href="{{ asset('css/dev_viet.css') }}" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    
 
     <!--[if lt IE 9]>
     <script src="js/html5shiv.js"></script>
@@ -24,55 +25,40 @@
 
 
     <link rel="shortcut icon" href="images/ico/favicon.ico">
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/ico/apple-touch-icon-144-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
 </head><!--/head-->
-
+<script>
+    var SESSION_LIFE_TIME = "{{ config('session.lifetime') }}"; 
+    var url = '{{(!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . '/'}}'
+</script>
 <body>
-	<header id="header"><!--header-->
-		<div class="header_top"><!--header_top-->
+	<header id="header"><!--header-->	
+		<div class="header-bottom"><!--header-bottom-->
 			<div class="container">
 				<div class="row">
 					<div class="col-sm-6">
 						<div class="contactinfo">
 							<ul class="nav nav-pills">
-								<!-- <li><a href="index.html"><img src="images/home/logo.png" alt="" /></a></li> -->
-								<li><a href="#"><i class="fa fa-phone"></i>090 88 68 8888</a></li>
-								<li><a href="#"><i class="fa fa-envelope"></i> thao-np@homehitech.vn</a></li>
+								<li><a href="tel:09088688888"><i class="fa fa-phone"></i>090 88 68 8888</a></li>
+								<li><a href="mailto:thao-np@homehitech.vn"><i class="fa fa-envelope"></i> thao-np@homehitech.vn</a></li>
 							</ul>
 						</div>
 					</div>
 					<div class="col-sm-6">
 						<div class="social-icons pull-right">
 							<ul class="nav navbar-nav">
-								<li><a href="#"><i class="fa fa-facebook"></i></a></li>
-								<li><a href="#"><i class="fa fa-skype"></i></a></li>
-								<li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+								<li><a href="{{$contact->facebook}}"><i class="fa fa-facebook"></i></a></li>
+								<li><a href="skype:{{$contact->skype}}?chat"><i class="fa fa-skype"></i></a></li>
+								<li><a href="mailto:{{$contact->email}}"><i class="fa fa-envelope"></i></a></li>
 							</ul>
 						</div>
 					</div>
 				</div>
-			</div>
-		</div><!--/header_top-->
-		<div class="header-middle"><!--header-middle-->
-			<div class="container">
-				<div class="row">
-					<div class="col-sm-12">
-						<div class="shop-menu pull-right">
-							<img class="img-responsive" src=" {{ asset('images/infor.jpg')}}" alt="" />
-						</div>
-					</div>
-				</div>
-			</div>
-		</div><!--/header-middle-->
-	
-		<div class="header-bottom"><!--header-bottom-->
-			<div class="container">
 				<div class="row" style="background-color: #f0f0e9;">
-					<div class="col-sm-9">
+					<div class="logo pull-left">						
+						<a href="{{route('index')}}"><img src="{{ asset('images/home/logo.png') }}" alt="" /></a>
+					</div>
+					<div class="pull-right">
 						<div class="navbar-header">
 							<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
 								<span class="sr-only">Toggle navigation</span>
@@ -81,20 +67,24 @@
 								<span class="icon-bar"></span>
 							</button>
 						</div>
-						<div class="mainmenu pull-left">
-							<ul class="nav navbar-nav collapse navbar-collapse">
-								<li><a href='/' class="active"><i class="fa fa-home" aria-hidden="true"></i>Trang chủ</a></li>
-								<li><a href="/blog">Tin tức</a></li> 
-								<li><a href="/lienhe-homepage">Liên Hệ</a></li>
-								<li><a href="/cart-homepage"><i class="fa fa-shopping-cart"></i> Giỏ hàng</a></li>
-								<li><span class="total-cart animated ">{{ $total }}</span></li>
-							</ul>
-						</div>
-					</div>
-					<div class="col-sm-3">
-						<div class="search_box pull-right">
-							<input type="text" placeholder="Search"/>
-						</div>
+						<ul class="nav navbar-nav collapse navbar-collapse">
+							<li><a href='/' class="active"><i class="fa fa-home" aria-hidden="true"></i>Trang chủ</a></li>
+							<li class="dropdown">
+								<a class="dropdown-toggle" data-toggle="dropdown" href="#">Sản Phẩm
+						        <span class="caret"></span></a>
+						        <ul class="dropdown-menu">
+							          @foreach($category as $key=>$val)
+							          	@if($val->parent_id == 0)
+							          		<li><a href="san-pham/{{$val->slug}}">{{$val->name}}</a></li>
+							          	@endif
+							          @endforeach
+								</ul>
+							</li>
+							<li><a href="{{route('tin-tuc')}}">Tin tức</a></li> 
+							<li><a href="{{route('lienhe')}}">Liên Hệ</a></li>
+							<li><a href="{{route('gio-hang')}}"><i class="fa fa-shopping-cart"></i> Giỏ hàng</a></li>
+							<li><span class="btn btn-sm btn-danger total-cart ">{{ $total }}</span></li>
+						</ul>
 					</div>
 				</div>
 			</div>
@@ -123,6 +113,7 @@
 								<a href="#">
 									<div class="iframe-img">
 										<img class="img-responsive" src=" {{ asset('images/home/frame1.png')}}" alt="" />
+										
 										<!-- <img src="images/home/frame1.png" alt="" /> -->
 									</div>
 								</a>
@@ -211,20 +202,21 @@
 			</div>
 		</div>
 	</footer><!--/Footer-->
-	
+	<div class="call">
+		<a href="tel:{{$contact->phone_canhan}}" mypage="" class="call-now" rel="nofollow">
+			<div class="mypage-alo-phone">
+			<div class="animated infinite zoomIn mypage-alo-ph-circle"></div>
+			<div class="animated infinite pulse mypage-alo-ph-circle-fill"></div>
+			<div class="animated infinite tada mypage-alo-ph-img-circle"></div>
+		</a>
+	</div>
     <script src="{{ asset('js/jquery.js') }}"></script>
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('js/jquery.scrollUp.min.js') }}"></script>
     <script src="{{ asset('js/price-range.js') }}"></script>
     <script src="{{ asset('js/jquery.prettyPhoto.js') }}"></script>
+    <script src="{{ asset('js/blockUI/jquery.blockUI.js') }}"></script>
+    <script src='{{ asset('common/common.js') }}'></script>
     <script src="{{ asset('js/main.js') }}"></script>
-    <script>
-    	$.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-    </script>
-
 </body>
 </html>

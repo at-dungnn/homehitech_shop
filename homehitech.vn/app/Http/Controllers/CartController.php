@@ -4,15 +4,20 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Product;
+use App\Contact;
+use App\Category;
 use Cart;
 
 class CartController extends Controller
 {
     public function getIndex(){  
-    	$total              =   Cart::getTotalQuantity();
+    	$total              	=   Cart::getTotalQuantity();
     	$cartCollection 		= 	Cart::getContent();
+    	$contact				=	Contact::all()->first();
+    	$category           	=   Category::all();
+    	$totalMoney				= 	Cart::getTotal();
     	// dd($cartCollection);
-    	return view('layouts.cart-content',compact('total','cartCollection'));
+    	return view('layouts.cart-content',compact('total','totalMoney','cartCollection','contact','category'));
     }
 
     public function postAddCart(Request $request){
@@ -24,7 +29,7 @@ class CartController extends Controller
 				    'id' 		=> $product->id,
 				    'name' 		=> $product->ten_sanpham,
 				    'price' 	=> $product->gia,
-				    'quantity' 	=> 1,
+				    'quantity' 	=> $product->quantity,
 				    'attributes'=> array(
 				    	'ma_sanpham'=> $product->ma_sanpham,
 				        'img_path'	=> $product->img_path

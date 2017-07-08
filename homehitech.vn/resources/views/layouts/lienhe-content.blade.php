@@ -17,15 +17,13 @@ src="https://www.google.com/maps/embed/v1/view?zoom=17&center=16.0658,108.2003&k
 	    			<div class="contact-info">
 	    				<h2 class="title text-center">Thông tin liên hệ</h2>
 	    				<address>
-	    					@foreach($contact as $contact_value)
 	    						<p style="font-weight: bold;">HomeHiTech</p>
-								<p>{{ $contact_value['address'] }}</p>
+								<p>{{ $contact['address'] }}</p>
 								<p>Việt Nam</p>
-								<p>Phone cá nhân: {{$contact_value['phone_canhan']}}</p>
-								<p>Phone công ty: {{$contact_value['phone_congty']}}</p>
-								<p>Facebook : {{$contact_value['phone_congty']}}</p>
-								<p>Email : {{$contact_value['email']}}</p>
-							@endforeach
+								<p>Phone cá nhân: {{$contact['phone_canhan']}}</p>
+								<p>Phone công ty: {{$contact['phone_congty']}}</p>
+								<p>Facebook : {{$contact['phone_congty']}}</p>
+								<p>Email : {{$contact['email']}}</p>
 	    				</address>
 	    				<div class="social-networks">
 	    					<h2 class="title text-center">Trang mạng xã hội</h2>

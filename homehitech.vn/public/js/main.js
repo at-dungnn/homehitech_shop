@@ -91,34 +91,22 @@ $(document).ready(function(){
             alert('icons-list li a:' + e.message);
         }
     });
-	// click list product
-        // $(document).on('click','.data_product',function(){
-        //     try {
-        //             var id = $(this).attr('data_id');
-        //             search(id);
-        //     } catch (e) {
-        //         alert('data_product:' + e.message);
-        //     }
-        // });
+
     $(document).on("click",".add-to-cart",function(){
     	var id 			= $(this).data('id');
     	// var total_cart 	= parseInt($(".total-cart").text());
-    	$.ajax({
-            type        :   'POST',
-            url         :   '/add-to-cart',
-            dataType    :   'json',
-            data        :   {
-                id      : id
-            },
-            success: function(res) {
-            	$(".total-cart").text(res.cartTotalQuantity);
-            	var body = $("html, body");
-				body.stop().animate({scrollTop:0}, 500, 'swing', function() { 
-				   $(".total-cart").addClass('shake');
-				});
-				
-            }
-        });
+    	addToCart(id,1);
+    });
+
+    $(document).on("click",".productDetail",function(){        
+        var id = $(this).data('id');
+        searchProduct(id);
+    });
+
+    $(document).on("click",".add_to_cart_button",function(){        
+        var id       = $(this).data('id');
+        var quantity = $(this).closest('.buttons_added').find('.quantity').val();
+        addToCart(id,quantity);
     });
 
 });
@@ -144,41 +132,124 @@ function search(id) {
                 //_token        : CSRF_TOKEN,
                 id      : id
             },
-            beforeSend: function(){
-                $("#list_product").html("");
-                $("#list_product").html("<img src='images/giphy.gif' class = 'format_loading'>");
-            },
             success: function(res) {
-                $.each(res.product,function(key, value ){
-				     var giam_gia = value['giam_gia']* value['gia']/100;
-				     giam_gia = value['gia'] - value['giam_gia'];
-				     html = html.concat('<div class="col-sm-4">'
-							+'<div class="product-image-wrapper">'
-								+'<div class="single-products">'
-										+'<div class="productinfo text-center">'
-											+'<img src="upload/product/'+value['img_path']+'" alt="" />'
-											+'<h2>Mã : '+value['ma_sanpham']+'</h2>'
-											+'<p>Công suất : '+value['cong_suat']+'</p>'
-											+'<p>Kích thước : '+value['kich_thuoc']+'</p>'
-											+'<p>Quang thông : '+value['quang_thong']+'</p>'
-											+'<p>Giá '+value['gia']+'đ</p>'
-											+'<p>Giảm giá : '+giam_gia+'đ</p>'
-											+'<a class="btn btn-default add-to-cart" data-id="'+value['id']+'"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ hàng</a>'
-										+'</div>'
-								+'</div>'
-								+'<div class="choose">'
-									+'<ul class="nav nav-pills nav-justified">'
-										+'<li><a href="#"><i class="fa fa-plus-square"></i>Chi tiết sản phẩm</a></li>'
-									+'</ul>'
-								+'</div>'
-							+'</div>'
-						+'</div>');
-				});
-				$("#list_product").html("");
-				$("#list_product").html(html);
+                if(res.response == true){
+                    $.each(res.product,function(key, value ){
+    				     var giam_gia = value['giam_gia']* value['gia']/100;
+                         var cong_suat;
+                         var kich_thuoc;
+                         var quang_thong;
+                         var giam_gia;
+                         gia      = '<div class="divTableRow">'                                             
+                                        +'<div class="divTableCell">Giảm còn:</div>'
+                                        +'<div class="divTableCellRight">'+value['gia']+' VNĐ</div>'                                            
+                                    +'</div>';
+                         giam_gia = value['gia'] - value['giam_gia'];
+                         if(value['cong_suat'] != ''){
+                            cong_suat = '<div class="divTableRow">'                                             
+                                            +'<div class="divTableCell">Công suất:</div>'
+                                            +'<div class="divTableCellRight">'+value['cong_suat']+'</div>'                                            
+                                        +'</div>';
+                         }
+                         if(value['kich_thuoc'] != ''){
+                            kich_thuoc = '<div class="divTableRow">'                                             
+                                            +'<div class="divTableCell">Kích thước:</div>'
+                                            +'<div class="divTableCellRight">'+value['kich_thuoc']+'</div>'                                            
+                                        +'</div>';
+                         }
+                         if(value['quang_thong'] != ''){
+                            quang_thong = '<div class="divTableRow">'                                             
+                                            +'<div class="divTableCell">Quang thông:</div>'
+                                            +'<div class="divTableCellRight">'+value['quang_thong']+'</div>'                                            
+                                        +'</div>';
+                         }
+                         if(value['giam_gia'] != ''){
+                            giam_gia = '<div class="divTableRow">'                                             
+                                            +'<div class="divTableCell">Giảm còn:</div>'
+                                            +'<div class="divTableCellRight">'+giam_gia+' VNĐ</div>'                                            
+                                        +'</div>';
+                            gia      = '<div class="divTableRow">'                                             
+                                            +'<div class="divTableCell">Giảm còn:</div>'
+                                            +'<div class="divTableCellRight"><strike>'+value['gia']+'</strike> VNĐ</div>'                                            
+                                        +'</div>';
+                         }
+    				     
+    				     html = html.concat('<div class="col-sm-4">'
+    							+'<div class="product-image-wrapper">'
+    								+'<div class="single-products">'
+    										+'<div class="productinfo text-center">'
+    											+'<img src="'+url+'upload/product/'+value['img_path']+'" alt="" />'
+    											+'<span class="productDetail" data-id="'+value['img_path']+'" data-toggle="modal" data-target="#myModal"><h2>Mã : '+value['ma_sanpham']+'</h2></span>'
+    											+'<div class="divTable">'
+    											+ cong_suat
+    											+ kich_thuoc
+    											+ quang_thong
+    											+ gia
+                                                + giam_gia
+                                                +'</div>'
+    											+'<a class="btn btn-default add-to-cart" data-id="'+value['id']+'"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ hàng</a>'
+    										+'</div>'
+    								+'</div>'
+    							+'</div>'
+    						+'</div>');
+    				});
+    				$("#list_product").html("");
+    				$("#list_product").html(html);
+                }else{
+                    $("#list_product").html("kHÔNG CÓ SẢN PHẨM NÀO!");
+                }
             }
         });
     } catch (e) {
-         alert('search' + e.message);
+         console.log('search: ' + e.message);
+    }
+}
+function searchProduct(id){
+    try {
+        $.ajax({
+            type        :   'POST',
+            url         :   '/search-product-detail',
+            dataType    :   'json',
+            data        :   {
+                id      : id
+            },
+            success: function(res) {
+                if(res.response == true){
+                    $(".img-detail").attr('src',url+'upload/product/'+res.product['img_path']);
+                    $(".title-detail").text(res.product['ten_sanpham']);
+                    $(".price-detail").text(res.product['gia']+' VNĐ');
+                    $(".content-detail").html(res.product['thong_so']);
+                    $(".add_to_cart_button").attr('data-id',res.product['id']);
+                }else{
+
+                }
+            }
+        });
+    } catch (e) {
+        console.log('searchProduct: '+e.message);
+    }
+}
+
+function addToCart(id,quantity){
+    try{
+        $.ajax({
+            type        :   'POST',
+            url         :   '/add-to-cart',
+            dataType    :   'json',
+            data        :   {
+                id      : id,
+                quantity: quantity
+            },
+            success: function(res) {
+                $(".total-cart").text(res.cartTotalQuantity);
+                var body = $("html, body");
+                body.stop().animate({scrollTop:0}, 500, 'swing', function() { 
+                   $(".total-cart").addClass('shake');
+                });
+                
+            }
+        });
+    } catch (e) {
+        console.log('searchProduct: '+e.message);
     }
 }

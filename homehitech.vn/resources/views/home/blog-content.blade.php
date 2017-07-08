@@ -53,7 +53,7 @@
 						<h2 class="title text-center">Danh mục bài viết</h2>
 						@foreach($news as $key => $val)
 						<div class="single-blog-post">
-							<h3><a href="/blog/detail/{{$val->slug}}" >{{$val->title}}</a></h3>
+							<h3><a href="/tin-tuc/{{$val->slug}}" >{{$val->title}}</a></h3>
 							<div class="post-meta">
 								<ul>
 									<li><i class="fa fa-clock-o"></i> {{substr($val->created_at,11,5)}}</li>
@@ -71,7 +71,7 @@
 								<img src="../upload/news/{{$val->img_path}}" alt="">
 							</a>
 							<p>{!!$val->intro!!}</p>
-							<a  class="btn btn-primary" href="/blog/detail/{{$val->slug}}">Xem chi tiết</a>
+							<a  class="btn btn-primary" href="/tin-tuc/{{$val->slug}}">Xem chi tiết</a>
 						</div>
 						@endforeach
 						<hr>

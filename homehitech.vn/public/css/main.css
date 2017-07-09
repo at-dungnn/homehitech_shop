@@ -2750,3 +2750,11 @@ li span.total-cart{
 .title-detail{
   margin-top: -25px;
 }
+.dropdown-menu{
+  min-width: 200px !important;
+}
+.dropdown-header {
+  font-size:15px !important;
+  background: #428bca;
+  color: #fff;
+}

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Banner;
-use Session;
+use Session, Image;
 class BannerController extends Controller
 {
     public function __construct(){
@@ -32,6 +32,7 @@ class BannerController extends Controller
         if($request->hasFile('img_path')){
             $filename	=	time()."-".$request->file('img_path')->getClientOriginalName();
             $request->file('img_path')->move('upload/banner',$filename);
+            Image::make('upload/banner/'.$filename)->resize(1140, 355)->save('upload/banner/'.$filename);
         }
         $banner 			=	new Banner;
         $banner->title 		=	$request->title;

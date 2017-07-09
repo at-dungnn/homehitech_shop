@@ -2682,7 +2682,7 @@ li span.total-cart{
     background-color: rgba(0,0,0,0.1);
     margin: 1em 0 1em;
     width: 100%;
-    max-width: 30px;
+    /*max-width: 100px;*/
 }
 .modal-lg{
   width: 80% !important;
@@ -2743,4 +2743,10 @@ li span.total-cart{
 }
 .input-text{
   height: 35px;
+}
+.img-detail{
+  width: 100%;
+}
+.title-detail{
+  margin-top: -25px;
 }

@@ -212,6 +212,7 @@ function search(id) {
          console.log('search: ' + e.message);
     }
 }
+
 function searchProduct(id){
     try {
         $.ajax({
@@ -223,9 +224,19 @@ function searchProduct(id){
             },
             success: function(res) {
                 if(res.response == true){
+                    var giam_gia;
+                    var gia;
+                    var html;
+                    if(res.product['giam_gia'] != ''){
+                        giam_gia    = res.product['giam_gia'] * res.product['gia'] / 100;
+                        gia         = formatMoney(parseInt(res.product['gia']) - parseInt(giam_gia));
+                        html        = '<b>Giá gốc:</b> <strike>'+formatMoney(res.product['gia'])+'</strike> VNĐ | <b>Giảm còn:</b> '+gia+' VNĐ';
+                    }else{
+                        html        = '<b>Giá:</b> '+ formatMoney(res.product['gia']) +' VNĐ';
+                    }
                     $(".img-detail").attr('src',url+'upload/product/'+res.product['img_path']);
                     $(".title-detail").text(res.product['ten_sanpham']);
-                    $(".price-detail").text(res.product['gia']+' VNĐ');
+                    $(".price-detail").html(html);
                     $(".content-detail").html(res.product['thong_so']);
                     $(".add_to_cart_button").attr('data-id',res.product['id']);
                 }else{

@@ -174,6 +174,8 @@
 	          		<h3><p class="title-detail"></p></h3>
 					<div class="is-divider small"></div>
 					<p class="price-detail"></p>
+					<div class="is-divider small"></div>
+					<p><b>Thông số:</b> </p>
 					<p class="content-detail"></p>
 					<div class="">
 				  		<div class="buttons_added">

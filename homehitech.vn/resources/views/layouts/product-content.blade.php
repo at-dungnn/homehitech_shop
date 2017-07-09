@@ -100,7 +100,7 @@
 							         		<div class="sale-left">-{{$val->giam_gia}}%</div>
 							         	</div>
 							         	@endif
-							            <img src="upload/product/{{$val->img_path}}" alt="">
+							            <img src="{{asset('upload/product/'.$val->img_path.'')}}" alt="">
 							            <span class="productDetail" data-id="{{$val->id}}" data-toggle="modal" data-target="#myModal">
 							            	<h2>Mã : {{$val->ma_sanpham}}</h2>
 							            </span>

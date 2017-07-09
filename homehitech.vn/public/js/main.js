@@ -52,6 +52,8 @@ $(document).ready(function(){
                 success: function(res) {
     				if(res.response==true){
                         showNotification("Xóa sản phẩm trong giỏ hàng thành công!","success");
+                        $(".total-cart").text(res.cartTotalQuantity);
+                        $(".tong_tien").text(formatMoney(res.total));
     					_this.closest('tr').remove();
     				}
                 }
@@ -77,13 +79,12 @@ $(document).ready(function(){
                 val 	: val
             },
             success: function(res) {
-				if(res.response==true){
-					// _this.closest('tr').remove();
-					var price = parseInt(_this.closest('tr').find('.cart_price').text());
+				if(res.response==true){                    
+                    var price = _this.closest('tr').find('.cart_price').text().replace(/,/gi,'');
+					var price = parseInt(price);
 					var total = price * val;
-					total = total.toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString().replace(".000","");
-					console.log(total);
-					_this.closest('tr').find('.cart_total_price').text(total);
+					_this.closest('tr').find('.cart_total_price').text(formatMoney(total)+" VNĐ");
+                    $(".tong_tien").text(formatMoney(res.total));
 
 				}
             }
@@ -108,6 +109,12 @@ $(document).ready(function(){
         var id       = $(this).data('id');
         var quantity = $(this).closest('.buttons_added').find('.quantity').val();
         addToCart(id,quantity);
+    });
+
+    $(document).on("click",".cart-checkout",function(){
+        var data = $(".form-checkout").serialize();  
+        showNotification("Đặ hàng thành công!","success");   
+        window.location.href = '/';   
     });
 
 });

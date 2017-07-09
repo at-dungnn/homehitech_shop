@@ -46,14 +46,14 @@
 							</td>
 						</tr>
 						@endforeach
-						<tr><td colspan="4"></td><td>Tổng tiền: {{number_format($totalMoney)}} VNĐ</td></tr>
+						<tr><td colspan="4"></td><td><b>Tổng tiền: <span class="tong_tien">{{number_format($totalMoney)}}</span> VNĐ</b></td></tr>
 					</tbody>
 				</table>
+				<div class="row pull-right" style="margin: 20px;">
+					<a href='{{route('gio-hang.checkout')}}' class="btn btn-default check_out" href="">Thanh toán</a>
+				</div><br>
 			</div>
-			<div class="row pull-right">
-				<a href='{{route('gio-hang.checkout')}}' class="btn btn-default check_out" href="">Thanh toán</a>
-
-			</div><br>
+			
 		</div>
 	</section> <!--/#cart_items-->
 @endsection

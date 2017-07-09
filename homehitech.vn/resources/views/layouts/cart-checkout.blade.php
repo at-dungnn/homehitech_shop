@@ -6,7 +6,7 @@
 			<div class="row form-horizontal">
 				<div class="col-md-12">
 					<div class="chose_area">
-						<form action="" method="POST" class="form-horizontal" role="form">												
+						<form action="" method="POST" class="form-checkout form-horizontal" role="form">												
 								<div class="form-group">
 									<label class="control-label col-md-2 ">Họ và tên</label>
 									<div class="col-md-6">
@@ -33,7 +33,7 @@
 								</div>
 								<div class="form-group">
 									<div class="col-sm-10 col-sm-offset-2">
-										<button type="submit" class="btn btn-primary">Đặt hàng</button>
+										<button type="button" class="btn btn-primary cart-checkout">Đặt hàng</button>
 									</div>
 								</div>
 						</form>

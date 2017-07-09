@@ -25,10 +25,15 @@ class CartController extends Controller
     	$product  = Product::where('id',$request->id)->get()->first();
     	
     	if($product){
+    		if($product->giam_gia != ''){
+    			$gia = $product->giam_gia * $product->gia / 100;
+    		}else{
+    			$gia = $product->gia;
+    		}
     		$add = Cart::add(array(
 				    'id' 		=> $product->id,
 				    'name' 		=> $product->ten_sanpham,
-				    'price' 	=> $product->gia,
+				    'price' 	=> $gia,
 				    'quantity' 	=> $request->quantity,
 				    'attributes'=> array(
 				    	'ma_sanpham'=> $product->ma_sanpham,

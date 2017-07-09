@@ -75,7 +75,16 @@
 						        <ul class="dropdown-menu">
 							          @foreach($category as $key=>$val)
 							          	@if($val->parent_id == 0)
-							          		<li><a href="san-pham/{{$val->slug}}">{{$val->name}}</a></li>
+							          		<li class="dropdown-header">
+							          			{{$val->name}}
+							          		</li>
+							          		@foreach($category as $key2=>$val2)
+							          			@if($val2->parent_id == $val->id)
+							          			<li>
+								          			<a href="{{route('san-pham',$val2->slug)}}">{{$val2->name}}</a>
+								          		</li>
+								          		@endif
+							          		@endforeach
 							          	@endif
 							          @endforeach
 								</ul>
@@ -187,6 +196,14 @@
 					<div class="col-sm-4">
 						<div class="single-widget" style="text-align: justify;line-height: 26px;">
 							<h2>Thông tin liên hệ</h2>
+							<div class="contact">
+								Địa chỉ: {{$contact->address}}<br>
+								Email: {{$contact->email}}<br>								
+								Số điện thoại: {{$contact->phone_congty}}<br>
+								Hotline: {{$contact->phone_canhan}}<br>
+								Skype: {{$contact->skype}}<br>
+								Facebook: {{$contact->facebook}}<br>
+							</div>
 						</div>
 					</div>
 					

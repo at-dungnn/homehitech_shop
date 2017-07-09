@@ -16,7 +16,7 @@ class IndexController extends Controller
         $category           =   Category::all();
     	$contact			=	Contact::all()->first();
         $menu               =   Category::where('parent_id',0)->get();
-        $product            =   Product::where('delete',0)->take(20)->orderBy('id','asc')->get();
+        $product            =   Product::where('delete',0)->take(24)->orderBy('id','asc')->get();
     	$banner 			= 	Banner::all();
         $total              =   Cart::getTotalQuantity();
         $news               =   News::paginate(10);

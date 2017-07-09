@@ -7,9 +7,9 @@
 			<div class="col-sm-12">
 				<div id="slider-carousel" class="carousel slide" data-ride="carousel">
 					<ol class="carousel-indicators">
-						<li data-target="#slider-carousel" data-slide-to="0" class="active"></li>
-						<li data-target="#slider-carousel" data-slide-to="1"></li>
-						<li data-target="#slider-carousel" data-slide-to="2"></li>
+						@foreach($banner as $key=>$val)
+							<li data-target="#slider-carousel" data-slide-to="{{$key}}" class="@if($key==0) active @endif""></li>
+						@endforeach
 					</ol>
 					
 					<div class="carousel-inner">

@@ -21,10 +21,13 @@ Route::get('/san-pham/{category}', 'IndexController@getProduct')->name('san-pham
 Route::get('/tin-tuc', 'BlogController@getIndex')->name('tin-tuc');
 Route::get('/tin-tuc/{slug}', 'BlogController@showBlog')->name('tin-tuc.chitiet');
 //Cart Home Page
-Route::get('/gio-hang', 'CartController@getIndex')->name('gio-hang');
+
 Route::post('/add-to-cart', 'CartController@postAddCart');
 Route::post('/delete-cart', 'CartController@postDelete');
 Route::post('/update-cart', 'CartController@postUpdate');
+Route::get('/gio-hang', 'CartController@getIndex')->name('gio-hang');
+Route::get('/gio-hang/thanh-toan', 'CartController@getCheckOut')->name('gio-hang.checkout');
+
 //Lien He Home Page
 Route::get('/lienhe', 'LienHeController@getIndex')->name('lienhe');
 

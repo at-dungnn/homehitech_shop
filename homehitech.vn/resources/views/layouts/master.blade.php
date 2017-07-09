@@ -216,6 +216,7 @@
     <script src="{{ asset('js/price-range.js') }}"></script>
     <script src="{{ asset('js/jquery.prettyPhoto.js') }}"></script>
     <script src="{{ asset('js/blockUI/jquery.blockUI.js') }}"></script>
+    <script src="{{asset('backend/js/bootstrap-notify-master/bootstrap-notify.min.js')}}"></script>
     <script src='{{ asset('common/common.js') }}'></script>
     <script src="{{ asset('js/main.js') }}"></script>
 </body>

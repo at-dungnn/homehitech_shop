@@ -29,7 +29,7 @@ class CartController extends Controller
 				    'id' 		=> $product->id,
 				    'name' 		=> $product->ten_sanpham,
 				    'price' 	=> $product->gia,
-				    'quantity' 	=> $product->quantity,
+				    'quantity' 	=> $request->quantity,
 				    'attributes'=> array(
 				    	'ma_sanpham'=> $product->ma_sanpham,
 				        'img_path'	=> $product->img_path
@@ -117,5 +117,11 @@ class CartController extends Controller
     				'response'				=>	true,
 	    			));
     	}
+    }
+    public function getCheckOut(){
+    	$contact				=	Contact::all()->first();
+    	$category           	=   Category::all();
+    	$total              	=   Cart::getTotalQuantity();
+    	return view('layouts.cart-checkout',compact('contact','category','total'));
     }
 }

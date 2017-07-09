@@ -41,21 +41,22 @@ $(document).ready(function(){
         try {
         	var _this 	= $(this);
         	var id 		= _this.data('id');
-        	
-
-            $.ajax({
-            type        :   'POST',
-            url         :   '/delete-cart',
-            dataType    :   'json',
-            data        :   {
-                id      : id
-            },
-            success: function(res) {
-				if(res.response==true){
-					_this.closest('tr').remove();
-				}
-            }
-        });
+        	if(confirm("Bạn chắc chắn muốn xóa sản phẩm này không?")){
+                $.ajax({
+                type        :   'POST',
+                url         :   '/delete-cart',
+                dataType    :   'json',
+                data        :   {
+                    id      : id
+                },
+                success: function(res) {
+    				if(res.response==true){
+                        showNotification("Xóa sản phẩm trong giỏ hàng thành công!","success");
+    					_this.closest('tr').remove();
+    				}
+                }
+            });
+        }
         } catch (e) {
             alert('icons-list li a:' + e.message);
         }
@@ -242,10 +243,13 @@ function addToCart(id,quantity){
             },
             success: function(res) {
                 $(".total-cart").text(res.cartTotalQuantity);
+                $(".close").trigger("click");
+                showNotification("Thêm sản phẩm vào giỏ hàng thành công!","success");
                 var body = $("html, body");
                 body.stop().animate({scrollTop:0}, 500, 'swing', function() { 
                    $(".total-cart").addClass('shake');
                 });
+
                 
             }
         });

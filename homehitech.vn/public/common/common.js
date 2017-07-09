@@ -3,7 +3,8 @@ $.ajaxSetup({
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     },
     error: function(response){       
-        window.location.href = '/';
+        // window.location.href = '/';
+        console.log(response);
     }
 });
 

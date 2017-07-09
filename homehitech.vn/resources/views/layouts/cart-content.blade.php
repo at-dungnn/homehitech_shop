@@ -42,7 +42,7 @@
 								<p class="cart_total_price">{{ number_format($val->quantity * $val->price) }} VNĐ</p>
 							</td>
 							<td class="cart_delete">
-								<a class="cart_quantity_delete" data-id="{{ $val->id }}"><i class="fa fa-times"></i></a>
+								<a class="cart_quantity_delete" data-id="{{ $val->id }}"><i class="fa fa-times" style="cursor: pointer;"></i></a>
 							</td>
 						</tr>
 						@endforeach
@@ -50,40 +50,10 @@
 					</tbody>
 				</table>
 			</div>
+			<div class="row pull-right">
+				<a href='{{route('gio-hang.checkout')}}' class="btn btn-default check_out" href="">Thanh toán</a>
+
+			</div><br>
 		</div>
 	</section> <!--/#cart_items-->
-
-	<section id="do_action">
-		<div class="container">
-			<div class="row form-horizontal">
-				<div class="col-md-6 pull-right">
-					<div class="chose_area">
-						<ul class="user_info">
-							<li class="single_field">
-								<label>Họ và tên:</label>
-								<input type="text">
-								
-							</li>
-							<li class="single_field">
-								<label>Số điện thoại:</label>
-								<input type="text">
-							
-							</li>
-							<li class="single_field">
-								<label>Email:</label>
-								<input type="text">
-							</li>
-							<li>
-								<label>Ghi chú</label>
-								<textarea name="" id="" rows="10" style="width: 470px"></textarea>
-							</li>
-						</ul>
-						
-						<a class="btn btn-default check_out" href="">Đặt hàng</a>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section><!--/#do_action-->
-
 @endsection
